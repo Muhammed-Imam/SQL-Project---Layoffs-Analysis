@@ -21,7 +21,7 @@ FROM layoffs
 
 WITH layoffsCTE AS (
 	SELECT *, ROW_NUMBER() OVER(PARTITION BY company, industry, total_laid_off, date 
-							    ORDER BY total_laid_off DESC) AS RN
+		  ORDER BY total_laid_off DESC) AS RN
 	FROM layoffs_staging
 )
 SELECT * 
@@ -39,7 +39,7 @@ WHERE company = 'oda'
 -- these are our real duplicates 
 WITH layoffsCTE AS (
 	SELECT *, ROW_NUMBER() OVER(PARTITION BY company, location, industry, total_laid_off, percentage_laid_off, date , stage, country, funds_raised_millions
-								ORDER BY total_laid_off DESC) AS RN
+		  ORDER BY total_laid_off DESC) AS RN
 	FROM layoffs_staging
 )
 SELECT * 
@@ -55,8 +55,8 @@ WHERE company = 'Yahoo'
 -- now you may want to write it like this:
 WITH Delete_CTE AS (
 	SELECT *, ROW_NUMBER() OVER(PARTITION BY company, location, industry, total_laid_off, 
-			  percentage_laid_off, date, stage, country, funds_raised_millions 
-			  ORDER BY total_laid_off DESC) AS RN
+		  percentage_laid_off, date, stage, country, funds_raised_millions 
+		  ORDER BY total_laid_off DESC) AS RN
 	FROM layoffs_staging
 )
 DELETE FROM Delete_CTE 
