@@ -15,7 +15,7 @@ FROM layoffs_staging
 
 -- Looking at Percentage to see how big these layoffs were
 SELECT MAX(percentage_laid_off) AS [Max_percentage_laid_off], 
-	   MIN(percentage_laid_off) AS [Min_percentage_laid_off]
+       MIN(percentage_laid_off) AS [Min_percentage_laid_off]
 FROM layoffs_staging
 WHERE percentage_laid_off IS NOT NULL
 
@@ -81,7 +81,7 @@ WITH Company_Year AS (
 	GROUP BY company, YEAR(date)
 ), Company_Year_Rank AS (
 	SELECT company, years, Sum_of_total_laid_off,
-		   DENSE_RANK() OVER(PARTITION BY years ORDER BY Sum_of_total_laid_off DESC) AS ranking
+	       DENSE_RANK() OVER(PARTITION BY years ORDER BY Sum_of_total_laid_off DESC) AS ranking
 	FROM Company_Year
 )
 SELECT *
